@@ -1,0 +1,6 @@
+ gsts --aws-profile=default --sp-id xxxx --idp-id xxxx
+ 
+ 
+ helm install testing helm -n test
+
+helm install testing --debug --dry-run deploying.
