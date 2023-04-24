@@ -1,0 +1,5 @@
+# Get the Node Resource Group
+az aks show -g "k8s-rg" -n "k8scluster" --query nodeResourceGroup -o tsv
+
+# Create Static Public IP
+az network public-ip create -g "mc_k8s-rg_k8scluster_eastus" -n myAKSPublicIPForIngress --sku Standard --allocation-method static --query publicIp.ipAddress -o tsv
