@@ -1,0 +1,32 @@
+
+
+flux bootstrap git \
+  --url=https://@dev.azure.com/xxxxxx \
+  --branch=main \
+  --password=${AZ_PAT_TOKEN} \
+  --token-auth=true
+
+
+```
+flux bootstrap git \
+  --url=https://@xxxx \
+  --branch=main \
+  --password=${AZ_PAT_TOKEN} \
+  --components-extra=source-controller,kustomize-controller \
+  --token-auth=true
+
+```
+
+
+  flux create source git servicesin \
+ --url=https://@@dev.azure.com/  \
+ --branch=main \
+ --interval=30s \
+ --export > flux1.yaml
+
+
+ kubectl create secret generic services \
+  --namespace=flux-system \
+  --from-literal=username=test.user \
+  --from-literal=password=xfxxxxxxx
+
