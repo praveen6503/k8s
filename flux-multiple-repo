@@ -1,0 +1,33 @@
+============================
+To add multiple repositories
+* Require each git url and secrets
+
+# To create secrets: 
+kubectl create secret generic my-second-repo-secret \
+  --namespace=flux-system \
+  --from-literal=username=<GIT_USERNAME> \
+  --from-literal=password=<GIT_PASSWORD>
+
+# To add additional repo
+# cat my-second-repo.yml
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: my-repo
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  ref:
+    branch: main
+  url: https://github.com/my-org/my-second-repo.git
+  secretRef:
+    name: my-repo-secret
+
+# kubectl apply -f my-second-repo.yml
+
+
+kubectl get gitrepositories -n flux-system
+
+kubectl delete gitrepository flux-system -n flux-system
+============================
