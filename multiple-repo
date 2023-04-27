@@ -1,0 +1,52 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: test
+  namespace: flux-system
+spec:
+  interval: 30s
+  ref:
+    branch: main
+  url: ssh://git@ssh.dev.azure.com/v3/xxxxxxxxxxxxx
+  secretRef:
+    name: test
+    
+###################
+
+
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: test
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: test
+
+#####
+
+flux reconcile source test && flux reconcile kustomization flux-system
+
+
+######
+
+# flux bootstrap git \
+#   --url=ssh://git@ssh.dev.azure.com/v3/xxxxxxxx \
+#   --branch=main \
+#   --ssh-key-algorithm=rsa \
+#   --ssh-rsa-bits=4096 \
+#   --interval=1m \
+#   --private-key-file=/home/test.user/.ssh/id_rsa
+
+####
+
+
+#     flux create secret git test \
+#     --url=ssh://git@ssh.dev.azure.com/v3/xxxxx \
+#     --private-key-file=/home/test.user/.ssh/pdiaa
+
+    
